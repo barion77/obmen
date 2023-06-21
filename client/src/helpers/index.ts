@@ -6,7 +6,7 @@ export const chechUserId = async () => {
         const userId = localStorage.getItem('userId')
 
         const url = getEnv(process.env.REACT_APP_SERVER_URL, 'REACT_APP_SERVER_URL')
-        const serverUserId = await fetch(`${url}/api/user/${userId || 'null'}`).then(res => res.json())
+        const serverUserId = await fetch(`${url}/user/${userId || 'null'}`).then(res => res.json())
 
         localStorage.setItem('userId', serverUserId.id || null)
     } catch (error: any) {
@@ -35,7 +35,7 @@ export const copyToClipboard = (text: string) => {
 export const getCurrencies = async () => {
     try {
         const url = getEnv(process.env.REACT_APP_SERVER_URL, 'REACT_APP_SERVER_URL')
-        const currencies: ICurrency[] = await fetch(`${url}/api/coins`).then(res => res.json())
+        const currencies: ICurrency[] = await fetch(`${url}/coins`).then(res => res.json())
 
         return currencies
     } catch (error: any) {

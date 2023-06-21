@@ -12,7 +12,7 @@ const useOrderInfo = () => {
     const navigate = useNavigate()
 
     const getOrder = async () => {
-        const order = await fetch(`${serveUrl}/api/order/${orderId}`).then(res => res.json())
+        const order = await fetch(`${serveUrl}/order/${orderId}`).then(res => res.json())
 
         if (order.error) {
             navigate('/')
@@ -23,7 +23,7 @@ const useOrderInfo = () => {
 
     const confirmOrder = async () => {
         try {
-            await fetch(`${serveUrl}/api/confirm/${orderId}`, {
+            await fetch(`${serveUrl}/confirm/${orderId}`, {
                 method: 'POST'
             }).then(res => res.json())
             window.location.reload()

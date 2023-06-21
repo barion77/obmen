@@ -49,12 +49,12 @@ const useForm = () => {
 
             const referalCode = localStorage.getItem('ref')
 
-            const res = await fetch(`${serveUrl}/api/newOrder/${receiveAmount}/${toCurrency.shortName}/${sendAmount}/${fromCurrency.shortName}/${receiver}/${email}/${referalCode || 'null'}/pending`, {
+            const res = await fetch(`${serveUrl}/newOrder/${receiveAmount}/${toCurrency.shortName}/${sendAmount}/${fromCurrency.shortName}/${receiver}/${email}/${referalCode || 'null'}/pending`, {
                 method: 'POST'
             }).then(res => res.json())
 
             if (res.orderId) {
-                const order = await fetch(`${serveUrl}/api/order/${res.orderId}`).then(res => res.json())
+                const order = await fetch(`${serveUrl}/order/${res.orderId}`).then(res => res.json())
 
                 dispatch(dispatchOrder(order))
 

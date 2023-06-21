@@ -26,7 +26,7 @@ const useChat = () => {
     const getHistoy = async () => {
         const userId = localStorage.getItem('userId')
 
-        const history = await fetch(`${serveUrl}/api/msgHistory/${userId}`).then(res => res.json())
+        const history = await fetch(`${serveUrl}/msgHistory/${userId}`).then(res => res.json())
 
         if (history.length > 0) {
             setMessages(history.map((elem: any) => ({
@@ -43,7 +43,7 @@ const useChat = () => {
     const sendMessage = async (message: Message) => {
         const userId = localStorage.getItem('userId')
         const timestamp = new Date().getTime()
-        await fetch(`${serveUrl}/api/msgSave/${message.text}/${userId}/${timestamp}/true`, {
+        await fetch(`${serveUrl}/msgSave/${message.text}/${userId}/${timestamp}/true`, {
             method: 'POST'
         })
 
