@@ -2,7 +2,7 @@ import sqlite3
 import os
 
 def create_db():
-    with sqlite3.connect(os.path.join("server", "database.db"),check_same_thread=False) as conn:
+    with sqlite3.connect("database.db",check_same_thread=False) as conn:
         cursor = conn.cursor()
     cursor.execute("""CREATE TABLE IF NOT EXISTS coins (shortName TEXT,fullName TEXT)""")
     cursor.execute("""CREATE TABLE IF NOT EXISTS chat_users (id INTEGER)""")
@@ -12,7 +12,7 @@ def create_db():
     cursor.close()
     
 def checkUser(user_id):
-    with sqlite3.connect(os.path.join("server", "database.db"),check_same_thread=False) as conn:
+    with sqlite3.connect("database.db",check_same_thread=False) as conn:
         cursor = conn.cursor()
     cursor.execute("select * from chat_users where id = ?",(user_id,))
     usr = cursor.fetchone()
@@ -20,7 +20,7 @@ def checkUser(user_id):
     return usr
 
 def registerUser(user_id,):
-    with sqlite3.connect(os.path.join("server", "database.db"),check_same_thread=False) as conn:
+    with sqlite3.connect("database.db",check_same_thread=False) as conn:
         cursor = conn.cursor()
     cursor.execute("INSERT INTO chat_users values (:id);" ,
             {'id': user_id})
@@ -29,7 +29,7 @@ def registerUser(user_id,):
     return
 
 def getId():
-    with sqlite3.connect(os.path.join("server", "database.db"),check_same_thread=False) as conn:
+    with sqlite3.connect("database.db",check_same_thread=False) as conn:
         cursor = conn.cursor()
     ids = cursor.execute(f'SELECT id FROM chat_users').fetchall()
     ids =[i[0] for i in ids]
@@ -39,7 +39,7 @@ def getId():
     return receiveAmount
 
 def addMsg(text,userId,timestamp,user):
-    with sqlite3.connect(os.path.join("server", "database.db"),check_same_thread=False) as conn:
+    with sqlite3.connect("database.db",check_same_thread=False) as conn:
         cursor = conn.cursor()
     cursor.execute("INSERT INTO messages values (:text,:userId,:timestamp,:user);" ,
             {'text': text,
@@ -52,7 +52,7 @@ def addMsg(text,userId,timestamp,user):
 
 
 def addOrder(orderId,receiveAmount,receiveCurrency,sendAmount,sendCurrency,receiver,email,referalCode,status):
-    with sqlite3.connect(os.path.join("server", "database.db"),check_same_thread=False) as conn:
+    with sqlite3.connect("database.db",check_same_thread=False) as conn:
         cursor = conn.cursor()
     cursor.execute("INSERT INTO changes values (:orderId,:receiveAmount,:receiveCurrency,:sendAmount,:sendCurrency,:receiver,:email,:referalCode,:status);" ,
             {'orderId': orderId,
@@ -79,14 +79,14 @@ def getUserId(user_id):
     return amount
 
 def changeStatus(orderId):
-    with sqlite3.connect(os.path.join("server", "database.db"),check_same_thread=False) as conn:
+    with sqlite3.connect("database.db",check_same_thread=False) as conn:
         cursor = conn.cursor()
     cursor.execute(f'UPDATE changes SET status = "confirmed" WHERE orderId = "{orderId}"')
     conn.commit()
     cursor.close()
 
 def getOrderInfo(orderId):
-    with sqlite3.connect(os.path.join("server", "database.db"),check_same_thread=False) as conn:
+    with sqlite3.connect("database.db",check_same_thread=False) as conn:
         cursor = conn.cursor()
     receiveAmount = cursor.execute(f'SELECT receiveAmount FROM changes WHERE orderId = "{orderId}"').fetchone()[0]
     receiveCurrency = cursor.execute(f'SELECT receiveCurrency FROM changes WHERE orderId = "{orderId}"').fetchone()[0]
@@ -102,7 +102,7 @@ def getOrderInfo(orderId):
     return receiveAmount,receiveCurrency,sendAmount,sendCurrency,receiver,email,referalCode,status,wallet 
 
 def checkOrder(user_id):
-    with sqlite3.connect(os.path.join("server", "database.db"),check_same_thread=False) as conn:
+    with sqlite3.connect("database.db",check_same_thread=False) as conn:
         cursor = conn.cursor()
     cursor.execute("select * from changes where orderId = ?",(user_id,))
     usr = cursor.fetchone()
@@ -111,7 +111,7 @@ def checkOrder(user_id):
 
 
 def get_coins():
-    with sqlite3.connect(os.path.join("server", "database.db"),check_same_thread=False) as conn:
+    with sqlite3.connect("database.db",check_same_thread=False) as conn:
         cursor = conn.cursor()
     ids = cursor.execute(f'SELECT fullName FROM coins').fetchall()
     ids =[i[0] for i in ids]
@@ -123,7 +123,7 @@ def get_coins():
     return ids,idd,ida
 
 def get_categories():
-    with sqlite3.connect(os.path.join("server", "database.db"),check_same_thread=False) as conn:
+    with sqlite3.connect("database.db",check_same_thread=False) as conn:
         cursor = conn.cursor()
     id = cursor.execute(f'SELECT id FROM categories').fetchall()
     id =[i[0] for i in id]
@@ -136,7 +136,7 @@ def get_categories():
 
 
 def get_items(ids):
-    with sqlite3.connect(os.path.join("server", "database.db"),check_same_thread=False) as conn:
+    with sqlite3.connect("database.db",check_same_thread=False) as conn:
         cursor = conn.cursor()
     id = cursor.execute(f'SELECT id FROM items WHERE category_id = {ids}').fetchall()
     id =[i[0] for i in id]
@@ -150,7 +150,7 @@ def get_items(ids):
     return id,name,description,thumb_url
 
 def getMessages(ids):
-    with sqlite3.connect(os.path.join("server", "database.db"),check_same_thread=False) as conn:
+    with sqlite3.connect("database.db",check_same_thread=False) as conn:
         cursor = conn.cursor()
     messages = cursor.execute(f'SELECT text FROM messages WHERE userId = {ids}').fetchall()
     messages =[i[0] for i in messages]
@@ -162,14 +162,14 @@ def getMessages(ids):
     return messages,timestamp,user
 
 def get_message(timestamp):
-    with sqlite3.connect(os.path.join("server", "database.db"),check_same_thread=False) as conn:
+    with sqlite3.connect("database.db",check_same_thread=False) as conn:
         cursor = conn.cursor()
     msg = cursor.execute(f'SELECT text FROM messages WHERE timestamp = "{timestamp}"').fetchone()[0]
     cursor.close()
     return msg
 
 def get_user(timestamp):
-    with sqlite3.connect(os.path.join("server", "database.db"),check_same_thread=False) as conn:
+    with sqlite3.connect("database.db",check_same_thread=False) as conn:
         cursor = conn.cursor()
     receiveAmount = cursor.execute(f'SELECT user FROM messages WHERE timestamp = "{timestamp}"').fetchone()[0]
     cursor.close()
@@ -177,7 +177,7 @@ def get_user(timestamp):
 
 
 def transactions():
-    with sqlite3.connect(os.path.join("server", "database.db"),check_same_thread=False) as conn:
+    with sqlite3.connect("database.db",check_same_thread=False) as conn:
         cursor = conn.cursor()
     txHash = cursor.execute(f'SELECT txHash FROM transactions').fetchall()
     txHash =[i[0] for i in txHash]
