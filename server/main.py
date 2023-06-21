@@ -41,7 +41,7 @@ def calculate(sendCurrencyName,receiveCurrencyName,sendAmount,receiveAmount,isCh
     return jsonify(amount = totalPrice)
     
 
-@app.route('/coins',methods = ['GET'])
+@app.route('api/coins',methods = ['GET'])
 def show_index1():
     data = []
     counter = 0 
@@ -51,7 +51,7 @@ def show_index1():
         counter +=1
     return jsonify(data,)
 
-@app.route('/user/<id>',methods = ['GET'])
+@app.route('api/user/<id>',methods = ['GET'])
 def getUser(id):
     if str(id).isdigit():
         return jsonify(id=int(id))
@@ -62,7 +62,7 @@ def getUser(id):
 
 
 
-@app.route('/transactions',methods = ['GET'])
+@app.route('api/transactions',methods = ['GET'])
 def transactionsList():
     data = []
     counter = 0 
@@ -72,7 +72,7 @@ def transactionsList():
         counter +=1
     return jsonify(data,)
 
-@app.route('/order/<orderId>',methods = ['GET'])
+@app.route('api/order/<orderId>',methods = ['GET'])
 def orderupd(orderId):
     usr = db_api.checkOrder(orderId)
     if not usr:
@@ -81,7 +81,7 @@ def orderupd(orderId):
         receiveAmount,receiveCurrency,sendAmount,sendCurrency,receiver,email,referalCode,status,wallet = db_api.getOrderInfo(orderId)
         return jsonify(receiveAmount = receiveAmount,receiveCurrency = receiveCurrency,sendAmount = sendAmount,sendCurrency = sendCurrency,receiver = receiver,email = email,referalCode = referalCode,status = status,wallet = wallet)
 
-@app.route('/confirm/<orderId>',methods = ['POST'])
+@app.route('api/confirm/<orderId>',methods = ['POST'])
 def confirm(orderId):
     db_api.changeStatus(orderId)
     receiveAmount,receiveCurrency,sendAmount,sendCurrency,receiver,email,referalCode,status,wallet = db_api.getOrderInfo(orderId)
@@ -142,7 +142,7 @@ def send_telegram_message(message, inline_keyboard):
 
 
 
-@app.route('/msgHistory/<id>',methods = ['GET'])
+@app.route('api/msgHistory/<id>',methods = ['GET'])
 def getUsers(id):
     try:
         messages,timestamp,user = db_api.getMessages(id)
@@ -158,7 +158,7 @@ def getUsers(id):
     except:
         return jsonify(error = 'not found')
 
-@app.route('/genTrans',methods = ['GET'])
+@app.route('api/genTrans',methods = ['GET'])
 def transactionsGeneratiin():
     block = random.randint(100000,999999)
     coins = ['ADA','BCH','BNB','BTC','DASH','DOGE','DOT','ETC','ETH','FTM','LTC','MATIC','SHIB','SOL','TRX','USDT','XMR','XRP','XTZ','ZEC','ZRX']
@@ -168,7 +168,7 @@ def transactionsGeneratiin():
     to = f'{address_generator(6)}...'
     return jsonify(txHash=txHash,block=block,fromAddress=fromm,to=to,value=value)
 
-@app.route('/newOrder/<receiveAmount>/<receiveCurrency>/<sendAmount>/<sendCurrency>/<receiver>/<email>/<referalCode>/<status>',methods = ['POST'])
+@app.route('api/newOrder/<receiveAmount>/<receiveCurrency>/<sendAmount>/<sendCurrency>/<receiver>/<email>/<referalCode>/<status>',methods = ['POST'])
 def newOrder(receiveAmount,receiveCurrency,sendAmount,sendCurrency,receiver,email,referalCode,status):
     orderIdd = random.randint(111111,999999)
     if str(referalCode) != 'null':
