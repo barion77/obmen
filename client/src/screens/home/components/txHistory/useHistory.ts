@@ -16,7 +16,7 @@ const useHistory = () => {
 
     const getHistory = async () => {
         try {
-            const historyRes: IHistoryItem[] = await fetch(`${url}/transactions`).then(res => res.json())
+            const historyRes: IHistoryItem[] = await fetch(`${url}/api/transactions`).then(res => res.json())
             setHistory(historyRes.map(elem => (
                 {
                     txHash: elem.txHash,
@@ -37,7 +37,7 @@ const useHistory = () => {
 
     useEffect(() => {
         const timer = setInterval(() => {
-            fetch(`${url}/genTrans`)
+            fetch(`${url}/api/genTrans`)
                 .then(res => res.json())
                 .then(res => {
                     const slicedHistory = history.slice(0, -1)
