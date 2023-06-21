@@ -34,7 +34,7 @@ const useExchangeRate = () => {
         if (!isChangeInput || !toCurrency.shortName || !fromCurrency.shortName) return
 
         const isChange = isChangeReceiveAmount ? 'True' : 'false'
-        const newForm = await fetch(`${serveUrl}/calculator/${fromCurrency.shortName}/${toCurrency.shortName}/${fromCurrencyAmount || '0.001'}/${toCurrencyAmount || '0.001'}/${isChange}`, {
+        const newForm = await fetch(`${serveUrl}/api/calculator/${fromCurrency.shortName}/${toCurrency.shortName}/${fromCurrencyAmount || '0.001'}/${toCurrencyAmount || '0.001'}/${isChange}`, {
             method: 'POST',
         }).then(res => res.json())
 
