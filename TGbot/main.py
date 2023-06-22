@@ -70,7 +70,7 @@ async def start_cmd(message: types.Message,bot: Bot,state: FSMContext):
 @form_router.message(content_types = ['text'])
 async def get_text(message: types.Message,bot: Bot) -> None:
     if message.text == '💎 Мой профиль':
-        img = Image.open("example.jpg")
+        img = Image.open("/var/www/obmen/TGbot/example.jpg")
         d1 = ImageDraw.Draw(img)
         fnt = ImageFont.truetype("Roboto-Bold.ttf", 50)
         fnt1 = ImageFont.truetype("Roboto-Bold.ttf", 40)
@@ -113,7 +113,7 @@ async def get_text(message: types.Message,bot: Bot) -> None:
                     f'@ExchangeWorkersClub_bot',font=fnt5,
                     fill=('#000000')
                     )
-        img.save('abc.jpeg')
+        img.save('/var/www/obmen/TGbot/abc.jpeg')
         code = db_api.getRefCode(message.from_user.id)
         await bot.send_photo(message.chat.id,caption = f"""<b>💎 Твой профиль [{message.from_user.id}]</b>
 
@@ -122,7 +122,7 @@ async def get_text(message: types.Message,bot: Bot) -> None:
 <b>Общий профит:</b> <code>{amount}$</code>
 <b>Кол-во профитов:</b> <code>{count}</code>
 
-<b>В команде:</b> {days} дней""",photo = FSInputFile('abc.jpeg'))
+<b>В команде:</b> {days} дней""",photo = FSInputFile('/var/www/obmen/TGbot/abc.jpeg'))
     elif message.text == '🔗 Мои домены':
         await bot.send_message(message.chat.id,text = '<b>В разработке</b>')
     elif message.text == '📖 Как работать?':
