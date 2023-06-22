@@ -49,7 +49,7 @@ def show_index1():
     for x in full:
         data.append({'fullName': x,'shortName': short[counter],'imageUrlP': image[counter]})
         counter +=1
-    return jsonify(data,)
+    return jsonify(data)
 
 @app.route('/user/<id>',methods = ['GET'])
 def getUser(id):
