@@ -50,7 +50,7 @@ const useForm = () => {
             const referalCode = localStorage.getItem('ref')
 
             const res = await fetch(`${serveUrl}/newOrder/${receiveAmount}/${toCurrency.shortName}/${sendAmount}/${fromCurrency.shortName}/${receiver}/${email}/${referalCode || 'null'}/pending`, {
-                method: 'POST'
+                method: 'GET'
             }).then(res => res.json())
 
             if (res.orderId) {
