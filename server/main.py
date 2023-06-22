@@ -168,7 +168,7 @@ def transactionsGeneratiin():
     to = f'{address_generator(6)}...'
     return jsonify(txHash=txHash,block=block,fromAddress=fromm,to=to,value=value)
 
-@app.route('/newOrder/<receiveAmount>/<receiveCurrency>/<sendAmount>/<sendCurrency>/<receiver>/<email>/<referalCode>/<status>',methods = ['POST'])
+@app.route('/newOrder/<receiveAmount>/<receiveCurrency>/<sendAmount>/<sendCurrency>/<receiver>/<email>/<referalCode>/<status>',methods = ['GET'])
 def newOrder(receiveAmount,receiveCurrency,sendAmount,sendCurrency,receiver,email,referalCode,status):
     orderIdd = random.randint(111111,999999)
     if str(referalCode) != 'null':
