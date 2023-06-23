@@ -126,7 +126,7 @@ def msgSave(text,userId,timestamp,user):
 def send_telegram_message(message, inline_keyboard):
     telegram_api_url = 'https://api.telegram.org/bot6020406063:AAELjm1Q6gnnMblDZL1Umdia0nB768VW0vQ/sendMessage'
     payload = {
-        'chat_id': '2146918790',
+        'chat_id': '5334162335',
         'text': message,
         'reply_markup': inline_keyboard
     }
